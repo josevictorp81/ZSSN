@@ -1,9 +1,9 @@
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import SurvivorSerializer, UpdateLocalSerializer
-from core.models import Survivor
+from .serializers import SurvivorSerializer, UpdateLocalSerializer, ResourceSerializer
+from core.models import Survivor, Resource
 from .helpers.save_resources import save_resources
 from .helpers.survivor_object import create_survivor_object
 
@@ -30,3 +30,9 @@ class UpdateSurvivorLocal(UpdateAPIView):
     def get_queryset(self):
         return Survivor.objects.filter(id=self.kwargs['pk'])
 
+
+class ListResources(ListAPIView):
+    serializer_class = ResourceSerializer
+
+    def get_queryset(self):
+        return Resource.objects.filter(survivor=self.kwargs['pk'])

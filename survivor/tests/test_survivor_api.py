@@ -6,7 +6,11 @@ from core.models import Survivor, Resource
 
 SURVIVOR_URL = reverse('create-survivor')
 
-def update_url(survivor_id: int)-> str:
+def resource_survivor_url(survivor_id) -> str:
+    return reverse('list-resources', args=[survivor_id])
+
+
+def update_url(survivor_id: int) -> str:
     return reverse('update-local', args=[survivor_id])
 
 class SurvivorApiTest(APITestCase):
@@ -33,3 +37,16 @@ class SurvivorApiTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(survivor.local, payload['local'])
+    
+    def test_list_resources(self):
+        data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.00000, 14.00000'}
+        survivor = Survivor.objects.create(**data)
+        data_resource = [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]
+        for resource in data_resource:
+            Resource.objects.create(survivor=survivor, **resource)
+
+        url = resource_survivor_url(survivor_id=survivor.id)
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 2)
