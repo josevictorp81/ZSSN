@@ -19,7 +19,7 @@ class Survivor(models.Model):
 class Resource(models.Model):
     name = models.CharField(max_length=25)
     quantity = models.IntegerField()
-    survivor = models.OneToOneField(Survivor, on_delete=models.CASCADE)
+    survivor = models.ForeignKey(Survivor, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name

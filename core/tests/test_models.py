@@ -13,6 +13,6 @@ class ModelTests(TestCase):
     
     def test_create_resource(self):
         survivor = create_survivor()
-        resource = Resource.objects.create(name='agua', points=4, quantity=1, survivor=survivor)
+        resource = Resource.objects.create(name='agua', quantity=1, survivor=survivor)
 
         self.assertEqual(resource.__str__(), 'agua')
