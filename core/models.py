@@ -8,7 +8,7 @@ class Survivor(models.Model):
     name = models.CharField(max_length=150)
     age = models.IntegerField()
     sex = models.CharField(choices=SEX, max_length=1, blank=False, null=False)
-    last_local = models.CharField(max_length=25)
+    local = models.CharField(max_length=25)
     infected = models.BooleanField(default=False)
     count = models.IntegerField(default=0)
 

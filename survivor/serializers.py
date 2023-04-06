@@ -12,5 +12,5 @@ class ResourceSerializer(serializers.ModelSerializer):
 class SurvivorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Survivor
-        fields = ['id', 'name', 'age', 'sex', 'last_local']
+        fields = ['id', 'name', 'age', 'sex', 'local']
         read_only_fields = ['id']

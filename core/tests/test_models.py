@@ -3,7 +3,7 @@ from django.test import TestCase
 from ..models import Survivor, Resource
 
 def create_survivor() -> Survivor:
-    return Survivor.objects.create(name='survivor 1', age=23, sex='M', last_local='12.34567, 8.89744')
+    return Survivor.objects.create(name='survivor 1', age=23, sex='M', local='12.34567, 8.89744')
 
 class ModelTests(TestCase):
     def test_create_survivor(self):

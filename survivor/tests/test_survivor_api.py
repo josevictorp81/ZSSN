@@ -8,7 +8,7 @@ SURVIVOR_URL = reverse('create-survivor')
 
 class SurvivorApiTest(APITestCase):
     def test_create_survivor_and_resources(self):
-        data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'last_local': '12.34563, 14.53467', 'resources': [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]}
+        data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.34563, 14.53467', 'resources': [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]}
         
         res = self.client.post(SURVIVOR_URL, data, format='json')
         survivor = Survivor.objects.filter(id=res.data['id'])
