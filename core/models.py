@@ -18,7 +18,6 @@ class Survivor(models.Model):
 
 class Resource(models.Model):
     name = models.CharField(max_length=25)
-    points = models.IntegerField()
     quantity = models.IntegerField()
     survivor = models.OneToOneField(Survivor, on_delete=models.CASCADE)
 

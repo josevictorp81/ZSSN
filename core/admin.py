@@ -12,6 +12,6 @@ class SurvivorAdmin(admin.ModelAdmin):
 
 @admin.register(Resource)
 class ResourceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'points', 'quantity', 'survivor']
+    list_display = ['id', 'name', 'quantity', 'survivor']
     list_display_links = ['id', 'name']
     
