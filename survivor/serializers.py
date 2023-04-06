@@ -14,3 +14,10 @@ class SurvivorSerializer(serializers.ModelSerializer):
         model = Survivor
         fields = ['id', 'name', 'age', 'sex', 'local']
         read_only_fields = ['id']
+
+
+class UpdateLocalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Survivor
+        fields = ['id', 'name', 'age', 'sex', 'local']
+        read_only_fields = ['id', 'name', 'age', 'sex']
