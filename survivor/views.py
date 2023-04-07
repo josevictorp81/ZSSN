@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -31,8 +31,15 @@ class UpdateSurvivorLocal(UpdateAPIView):
         return Survivor.objects.filter(id=self.kwargs['pk'])
 
 
-class ListResources(ListAPIView):
+class ListSurvivorResources(RetrieveAPIView):
     serializer_class = ResourceSerializer
+    queryset = Resource.objects.all()
+    http_method_names = ['get']
 
-    def get_queryset(self):
-        return Resource.objects.filter(survivor=self.kwargs['pk'])
+    def get(self, request, *args, **kwargs):
+        if Survivor.objects.filter(id=kwargs['pk']).exists():
+            resources = self.queryset.filter(survivor=kwargs['pk'])
+            serializer = self.serializer_class(instance=resources, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(data={'detail': 'Survivor not found.'}, status=status.HTTP_404_NOT_FOUND)

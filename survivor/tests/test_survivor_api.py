@@ -38,7 +38,7 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(survivor.local, payload['local'])
     
-    def test_list_resources(self):
+    def test_list_resources_of_an_survivor(self):
         data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.00000, 14.00000'}
         survivor = Survivor.objects.create(**data)
         data_resource = [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]
