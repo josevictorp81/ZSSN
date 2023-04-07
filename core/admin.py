@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Survivor, Resource
+from .models import Survivor, Resource, Infected
 
 @admin.register(Survivor)
 class SurvivorAdmin(admin.ModelAdmin):
@@ -14,4 +14,9 @@ class SurvivorAdmin(admin.ModelAdmin):
 class ResourceAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'quantity', 'survivor']
     list_display_links = ['id', 'name']
+
+
+@admin.register(Infected)
+class InfectedAdmin(admin.ModelAdmin):
+    list_display = ['id', 'surivor_relator', 'surivor_infected']
     

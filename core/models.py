@@ -10,7 +10,6 @@ class Survivor(models.Model):
     sex = models.CharField(choices=SEX, max_length=1, blank=False, null=False)
     local = models.CharField(max_length=25)
     infected = models.BooleanField(default=False)
-    count = models.IntegerField(default=0)
 
     def __str__(self) -> str:
         return self.name
@@ -23,3 +22,8 @@ class Resource(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class Infected(models.Model):
+    surivor_relator = models.IntegerField()
+    surivor_infected = models.IntegerField()
