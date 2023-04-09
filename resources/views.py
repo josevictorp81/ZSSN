@@ -4,7 +4,7 @@ from rest_framework import status
 
 from .serializers import ResourceSerializer
 from core.models import Survivor, Resource
-from .helpers.get_resources import mean_ammunition, mean_food, mean_medication, mean_water
+from .helpers.get_resources_average import mean_ammunition, mean_food, mean_medication, mean_water
 
 class ListSurvivorResources(RetrieveAPIView):
     serializer_class = ResourceSerializer
