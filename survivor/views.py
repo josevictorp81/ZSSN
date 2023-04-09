@@ -58,5 +58,5 @@ class SurvivorInfected(CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         if(serializer.is_valid()):
             serializer.save()
-            return Response(data={'detail': f'Sobrevivente {infected} ralatado como infectado'}, status=status.HTTP_201_CREATED)
+            return Response(data={'detail': 'Sobrevivente reportado como infectado.'}, status=status.HTTP_201_CREATED)
         return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)
