@@ -2,8 +2,8 @@ from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, R
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import SurvivorSerializer, UpdateLocalSerializer, ResourceSerializer
-from core.models import Survivor, Resource
+from .serializers import SurvivorSerializer, UpdateLocalSerializer, ResourceSerializer, InfectedSerializer
+from core.models import Survivor, Resource, Infected
 from .helpers.save_resources import save_resources
 from .helpers.survivor_object import create_survivor_object
 
@@ -42,4 +42,16 @@ class ListSurvivorResources(RetrieveAPIView):
             serializer = self.serializer_class(instance=resources, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(data={'detail': 'Survivor not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response(data={'detail': 'Sobrevivente não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class SurvivorInfected(CreateAPIView):
+    serializer_class = InfectedSerializer
+    queryset = Infected.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if(serializer.is_valid()):
+            serializer.save()
+            return Response(data={'detail': 'Sobrevivente ralatado como infectado'}, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
