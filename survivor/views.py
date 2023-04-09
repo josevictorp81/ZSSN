@@ -61,12 +61,22 @@ class SurvivorInfected(CreateAPIView):
         return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class SurvivorInfectedPercent(ListAPIView):
+class SurvivorInfectedPercentage(ListAPIView):
     queryset = Survivor.objects.all()
     
     def get(self, request, *args, **kwargs):
         all_survivors = self.queryset.count()
         infected_survivors = self.queryset.filter(infected=True).count()
         percentage = (infected_survivors / all_survivors) * 100
+        return Response(data={'detail': f'{percentage:.2f}%'}, status=status.HTTP_200_OK)
+
+
+class SurvivorNotInfectedPercentage(ListAPIView):
+    queryset = Survivor.objects.all()
+    
+    def get(self, request, *args, **kwargs):
+        all_survivors = self.queryset.count()
+        survivors_not_infected = self.queryset.filter(infected=False).count()
+        percentage = (survivors_not_infected / all_survivors) * 100
         return Response(data={'detail': f'{percentage:.2f}%'}, status=status.HTTP_200_OK)
     
