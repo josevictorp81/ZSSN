@@ -34,6 +34,8 @@ class InfectedSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         reporter = attrs['reporter']
         infected = attrs['infected']
+        if reporter == infected:
+            raise serializers.ValidationError(detail={'detail': 'Sobrevivente não pode reportar a si mesmo como infectado.'})
         if not survivor_exists(survivor=reporter):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente que reportou a infecção não existe.'})
         if not survivor_exists(survivor=infected):
