@@ -9,11 +9,22 @@ def mean_water() -> float:
     mean = quantity / surivor_amount
     return mean
 
+
 def mean_medication() -> float:
     surivor_amount = Survivor.objects.all().count()
     all_medication = Resource.objects.filter(name='Medicação')
     quantity = 0
     for medication in all_medication:
         quantity += medication.quantity
+    mean = quantity / surivor_amount
+    return mean
+
+
+def mean_food() -> float:
+    surivor_amount = Survivor.objects.all().count()
+    all_food= Resource.objects.filter(name='Alimentação')
+    quantity = 0
+    for food in all_food:
+        quantity += food.quantity
     mean = quantity / surivor_amount
     return mean
