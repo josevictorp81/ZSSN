@@ -54,7 +54,6 @@ class SurvivorInfected(CreateAPIView):
     queryset = Infected.objects.all()
 
     def create(self, request, *args, **kwargs):
-        infected = request.data['infected']
         serializer = self.serializer_class(data=request.data)
         if(serializer.is_valid()):
             serializer.save()

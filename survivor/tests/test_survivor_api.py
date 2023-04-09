@@ -81,6 +81,16 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res.data['detail'], f'Sobrevivente {survivor1.id} ja reportou o sobrevivente {survivor2.id} como infectado.')
     
+    def test_survivor_infected_not_report(self):
+        survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002', infected=True)
+        survivor2 = Survivor.objects.create(name='name2', age=35, sex= 'M', local= '12.00003, 14.00004')
+        Infected.objects.create(reporter=survivor1.id, infected=survivor2.id)
+
+        res = self.client.post(INFECTED_URL, {'reporter': survivor1.id, 'infected': survivor2.id}, format='json')
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(res.data['detail'], 'Sobrevivente infectado não pode reportar outro sobrevivente como infectado.')
+    
     def test_dont_report_yourself(self):
         survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
 
