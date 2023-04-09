@@ -27,7 +27,7 @@ class SurvivorApiTest(APITestCase):
         
         res = self.client.post(SURVIVOR_URL, data, format='json')
         survivor = Survivor.objects.filter(id=res.data['id'])
-        resource = Resource.objects.filter(survivor__id=res.data['id'])
+        resource = Resource.objects.filter(survivor=res.data['id'])
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(resource.count(), 2)
