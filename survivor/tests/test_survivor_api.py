@@ -6,6 +6,7 @@ from core.models import Survivor, Resource, Infected
 
 SURVIVOR_URL = reverse('create-survivor')
 INFECTED_URL = reverse('survivor-infected')
+PERCENTAGE_INFECTED = reverse('percentage-infected')
 
 def create_survivor() -> list:
     survivors = []
@@ -118,3 +119,14 @@ class SurvivorApiTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res.data['detail'], 'Informe os recursos do sobrevivente.')
+    
+    def test_return_percentage_of_survivors_infected(self):
+        survivors = create_survivor()
+        s4 = survivors[3]
+        s4.infected = True
+        s4.save()
+
+        res = self.client.get(PERCENTAGE_INFECTED)
+        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data['detail'], '25.00%')

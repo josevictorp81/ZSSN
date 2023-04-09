@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -59,3 +59,14 @@ class SurvivorInfected(CreateAPIView):
             serializer.save()
             return Response(data={'detail': 'Sobrevivente reportado como infectado.'}, status=status.HTTP_201_CREATED)
         return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SurvivorInfectedPercent(ListAPIView):
+    queryset = Survivor.objects.all()
+    
+    def get(self, request, *args, **kwargs):
+        all_survivors = self.queryset.count()
+        infected_survivors = self.queryset.filter(infected=True).count()
+        percentage = (infected_survivors / all_survivors) * 100
+        return Response(data={'detail': f'{percentage:.2f}%'}, status=status.HTTP_200_OK)
+    
