@@ -25,5 +25,5 @@ class Resource(models.Model):
 
 
 class Infected(models.Model):
-    surivor_relator = models.IntegerField()
-    surivor_infected = models.IntegerField()
+    reporter = models.IntegerField()
+    infected = models.IntegerField()

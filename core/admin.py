@@ -18,5 +18,5 @@ class ResourceAdmin(admin.ModelAdmin):
 
 @admin.register(Infected)
 class InfectedAdmin(admin.ModelAdmin):
-    list_display = ['id', 'surivor_relator', 'surivor_infected']
+    list_display = ['id', 'reporter', 'infected']
     
