@@ -38,3 +38,6 @@ def mean_ammunition() -> float:
         quantity += ammunition.quantity
     mean = quantity / surivor_amount
     return mean
+
+def mean_resources() -> dict:
+    pass

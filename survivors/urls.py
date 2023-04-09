@@ -8,4 +8,5 @@ urlpatterns = [
     path('survivors/infected/', views.SurvivorInfected.as_view(), name='survivor-infected'),
     path('survivors/percentage-infected/', views.SurvivorInfectedPercentage.as_view(), name='percentage-infected'),
     path('survivors/percentage-not-infected/', views.SurvivorNotInfectedPercentage.as_view(), name='percentage-not-infected'),
+    path('survivors/<int:pk>/lost-points/', views.LostPointsPerInfected.as_view(), name='lost-points'),
 ]

@@ -17,8 +17,8 @@ def create_survivor() -> list:
     return survivors
 
 
-def update_url(survivor_id: int) -> str:
-    return reverse('update-local', args=[survivor_id])
+def survivor_url(url: str, survivor_id) -> str:
+    return reverse(url, args=[survivor_id])
 
 
 class SurvivorApiTest(APITestCase):
@@ -38,7 +38,7 @@ class SurvivorApiTest(APITestCase):
         survivor = Survivor.objects.create(**data)
         payload = {'local': '12.34563, 14.53467'}
         
-        url = update_url(survivor_id=survivor.id)
+        url = survivor_url(url='update-local', survivor_id=survivor.id)
         res = self.client.put(url, payload, format='json')
 
         survivor.refresh_from_db()
@@ -114,3 +114,19 @@ class SurvivorApiTest(APITestCase):
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data['detail'], '75.00%')
+    
+    def test_lost_points(self):
+        survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
+        survivor2 = Survivor.objects.create(name='name2', age=25, sex= 'M', local= '12.00003, 14.00004', infected=True)
+        data_resource1 = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 3}, {'name': 'Alimentação', 'quantity': 5}, {'name': 'Munição', 'quantity': 1}]
+        data_resource2 = [{'name': 'Água', 'quantity': 1}, {'name': 'Medicação', 'quantity': 2}, {'name': 'Alimentação', 'quantity': 3}, {'name': 'Munição', 'quantity': 1}]
+        for resource in data_resource1:
+            Resource.objects.create(survivor=survivor1, **resource)
+        for resource in data_resource2:
+            Resource.objects.create(survivor=survivor2, **resource)
+
+        url = survivor_url(url='lost-points', survivor_id=survivor2.id)
+        res = self.client.get(url)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data['detail'], '18 ponto(s)')

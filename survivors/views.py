@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -6,6 +6,7 @@ from .serializers import SurvivorSerializer, UpdateLocalSerializer, InfectedSeri
 from core.models import Survivor, Infected
 from .helpers.save_resources import save_resources
 from .helpers.survivor_object import create_survivor_object
+from .helpers.get_lost_points import get_lost_points
 
 
 class SurvivorCreate(CreateAPIView):
@@ -63,4 +64,17 @@ class SurvivorNotInfectedPercentage(ListAPIView):
         survivors_not_infected = self.queryset.filter(infected=False).count()
         percentage = (survivors_not_infected / all_survivors) * 100
         return Response(data={'detail': f'{percentage:.2f}%'}, status=status.HTTP_200_OK)
+
+
+class LostPointsPerInfected(RetrieveAPIView):
+    serializer_class = None
+    queryset = Survivor.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        if not self.queryset.filter(id=kwargs['pk']).exists():
+            Response(data={'detail': 'Sobrevivente não existe.'}, status=status.HTTP_404_NOT_FOUND)
+        if not self.queryset.get(id=kwargs['pk']).infected:
+            Response(data={'detail': 'Este sobrevivente não é infectado.'}, status=status.HTTP_400_BAD_REQUEST)
+        lost_points = get_lost_points(id=kwargs['pk'])
+        return Response(data={'detail': f'{lost_points} ponto(s)'}, status=status.HTTP_200_OK)
     
