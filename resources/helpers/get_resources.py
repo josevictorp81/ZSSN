@@ -28,3 +28,13 @@ def mean_food() -> float:
         quantity += food.quantity
     mean = quantity / surivor_amount
     return mean
+
+
+def mean_ammunition() -> float:
+    surivor_amount = Survivor.objects.all().count()
+    all_ammunition = Resource.objects.filter(name='Munição')
+    quantity = 0
+    for ammunition in all_ammunition:
+        quantity += ammunition.quantity
+    mean = quantity / surivor_amount
+    return mean
