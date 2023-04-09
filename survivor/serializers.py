@@ -32,10 +32,15 @@ class InfectedSerializer(serializers.ModelSerializer):
         read_only = ['id']
 
     def validate(self, attrs):
-        if not survivor_exists(survivor=attrs['reporter']):
+        reporter = attrs['reporter']
+        infected = attrs['infected']
+        if not survivor_exists(survivor=reporter):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente que reportou a infecção não existe.'})
-        if not survivor_exists(survivor=attrs['infected']):
+        if not survivor_exists(survivor=infected):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente reportado como infectado não existe.'})
+        reported = self.Meta.model.objects.filter(reporter=reporter,  infected=infected)
+        if reported.exists():
+            raise serializers.ValidationError(detail={'detail': f'Sobrevivente {reporter} ja reportou o sobrevivente {infected} como infectado.'})
         return super().validate(attrs)
 
     def create(self, validated_data):

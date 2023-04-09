@@ -2,7 +2,7 @@ from rest_framework.test import APITestCase
 from rest_framework import status
 from django.urls import reverse
 
-from core.models import Survivor, Resource
+from core.models import Survivor, Resource, Infected
 
 SURVIVOR_URL = reverse('create-survivor')
 INFECTED_URL = reverse('survivor-infected')
@@ -71,4 +71,14 @@ class SurvivorApiTest(APITestCase):
         infected = Survivor.objects.get(id=s4.id)
 
         self.assertTrue(infected.infected)
+    
+    def test_reporte_infected_again(self):
+        survivor1 = Survivor.objects.create(name=f'name1', age=23, sex= 'F', local= f'12.00001, 14.00002')
+        survivor2 = Survivor.objects.create(name=f'name2', age=35, sex= 'M', local= f'12.00003, 14.00004')
+        Infected.objects.create(reporter=survivor1.id, infected=survivor2.id)
+
+        res = self.client.post(INFECTED_URL, {'reporter': survivor1.id, 'infected': survivor2.id}, format='json')
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(res.data['detail'][0], f'Sobrevivente {survivor1.id} ja reportou o sobrevivente {survivor2.id} como infectado.')
 
