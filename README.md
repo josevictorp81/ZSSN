@@ -1,7 +1,6 @@
 # ZSSN - Rede Social de Sobrevivência Zumbi
 
-ZSSN (Rede Social de Sobrevivência Zumbi) é uma rede social para um mundo com cenário apocalíptico. Um vírus produzido em laboratório está transformando
-seres humanos e animais em zumbis, famintos por carne fresca. O objetivo é desenvolver um sistema para compartilhar recursos entre humanos não infectados.E esta é uma _API REST_ que armazenará informações sobre os sobreviventes em um apocalipse zumbi, bem como os recursos que eles possuem.
+ZSSN (Rede Social de Sobrevivência Zumbi) é uma rede social para um mundo com cenário apocalíptico, infestado por um vírus produzido em laboratório que está transformando seres humanos e animais em zumbis. O objetivo é desenvolver um sistema para compartilhar recursos entre humanos não infectados.E esta é uma _API REST_ que armazenará informações sobre os sobreviventes em um apocalipse zumbi, bem como os recursos que eles possuem.
 
 ## Casos de uso
 
