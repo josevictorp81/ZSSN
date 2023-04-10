@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
 from core.models import Infected, Survivor
-from helpers.search_survivor import survivor_exists
+from helpers.verify_survivor_exist import survivor_exists
 from .helpers.save_survivor_infected import save_survivor_infected
-from helpers.survivor_infected_verify import survivor_infected_verify
+from helpers.verify_survivor_infected import survivor_infected_verify
 
 
 class SurvivorSerializer(serializers.ModelSerializer):
