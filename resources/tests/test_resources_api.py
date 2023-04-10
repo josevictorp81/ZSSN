@@ -40,7 +40,7 @@ class ResourceTests(APITestCase):
         url = resource_survivor_url(survivor_id=survivor.id)
         res = self.client.get(url)
 
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res.data['detail'], 'Sobrevivente infectado, recursos indisponíveis.')
     
     def test_mean_amount_resources_for_survivor(self):

@@ -7,7 +7,7 @@ from helpers.verify_survivor_infected import survivor_infected
 from resources.helpers.get_count_survirvos import get_survivor_amount
 
 from .serializers import ResourceSerializer, NegotiateSerializer
-from core.models import Survivor, Resource
+from core.models import Resource
 from .helpers.get_resources_average import resource_average
 
 class ListSurvivorResources(RetrieveAPIView):
