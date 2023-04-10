@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from core.models import Resource
 from helpers.verify_survivor_exist import survivor_exists
-from helpers.verify_survivor_infected import survivor_infected_verify
+from helpers.verify_survivor_infected import survivor_infected
 from .helpers.count_points import count_resources_points
 from .helpers.update_negotiantion import update_resources
 from .helpers.get_resources import get_resources
@@ -29,9 +29,9 @@ class NegotiateSerializer(serializers.Serializer):
     target_resources = ResourceNegotiateSerializer(many=True, required=True)
 
     def validate(self, attrs):
-        if not survivor_exists(attrs['negotiator']) or not survivor_exists(attrs['target']):
+        if not survivor_exists(survivor_id=attrs['negotiator']) or not survivor_exists(survivor_id=attrs['target']):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente não existe.'})
-        if survivor_infected_verify(id=attrs['negotiator']) or survivor_infected_verify(id=attrs['target']):
+        if  survivor_infected(survivor_id=attrs['negotiator']) or  survivor_infected(survivor_id=attrs['target']):
             raise serializers.ValidationError(detail={'detail': 'Negociação inválida, um dos sobreviventes está infectado.'})
         if len(attrs['negotiator_resources']) == 0 or len(attrs['target_resources']) == 0:
             raise serializers.ValidationError(detail={'detail': 'Negociação inválida, nenhum recurso enviado para troca.'})

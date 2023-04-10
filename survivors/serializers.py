@@ -3,7 +3,7 @@ from rest_framework import serializers
 from core.models import Infected, Survivor
 from helpers.verify_survivor_exist import survivor_exists
 from .helpers.save_survivor_infected import save_survivor_infected
-from helpers.verify_survivor_infected import survivor_infected_verify
+from helpers.verify_survivor_infected import survivor_infected
 
 
 class SurvivorSerializer(serializers.ModelSerializer):
@@ -31,11 +31,11 @@ class InfectedSerializer(serializers.ModelSerializer):
         infected = attrs['infected']
         if reporter == infected:
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente não pode reportar a si mesmo como infectado.'})
-        if survivor_infected_verify(id=reporter):
+        if  survivor_infected(survivor_id=reporter):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente infectado não pode reportar outro sobrevivente como infectado.'})
-        if not survivor_exists(survivor=reporter):
+        if not survivor_exists(survivor_id=reporter):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente que reportou a infecção não existe.'})
-        if not survivor_exists(survivor=infected):
+        if not survivor_exists(survivor_id=infected):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente reportado como infectado não existe.'})
         reported = self.Meta.model.objects.filter(reporter=reporter,  infected=infected)
         if reported.exists():
