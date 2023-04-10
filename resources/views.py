@@ -4,9 +4,10 @@ from rest_framework import status
 
 from .serializers import ResourceSerializer, NegotiateSerializer
 from core.models import Survivor, Resource
-from .helpers.get_resources_average import mean_ammunition, mean_food, mean_medication, mean_water
+from .helpers.get_resources_average import resource_average
 
 class ListSurvivorResources(RetrieveAPIView):
+    """ list resources of an survivor """
     serializer_class = ResourceSerializer
     queryset = Resource.objects.all()
 
@@ -22,14 +23,20 @@ class ListSurvivorResources(RetrieveAPIView):
 
 
 class MeanAmountResources(ListAPIView):
+    """ list average of all resources """
     queryset = Resource.objects.all()
     serializer_class = None
 
     def get(self, request, *args, **kwargs):
-        return Response(data={'água': mean_water(), 'medicação': mean_medication(), 'alimentação': mean_food(), 'munição': mean_ammunition()}, status=status.HTTP_200_OK)
+        water = resource_average(resource_name='Água')
+        medication = resource_average(resource_name='Medicação')
+        food = resource_average(resource_name='Alimentação')
+        ammunition = resource_average(resource_name='Munição')
+        return Response(data={'Água': water, 'Medicação': medication, 'Alimentação': food, 'Munição': ammunition}, status=status.HTTP_200_OK)
 
 
 class NegotiateResources(CreateAPIView):
+    """ make an resource negotiation """
     queryset = None
     serializer_class = NegotiateSerializer
 

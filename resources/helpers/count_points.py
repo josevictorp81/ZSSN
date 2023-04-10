@@ -1,6 +1,5 @@
-
-
-def count_resources_points(resources: list) -> int: 
+def count_resources_points(resources: list) -> int:
+    """ return resources total points of an survivor """ 
     total_points = 0                                
     for resource in resources:                      
         if resource['name'] == 'Água':              

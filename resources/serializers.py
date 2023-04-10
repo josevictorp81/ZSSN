@@ -29,6 +29,7 @@ class NegotiateSerializer(serializers.Serializer):
     target_resources = ResourceNegotiateSerializer(many=True, required=True)
 
     def validate(self, attrs):
+        """ validate serializer data """
         if not survivor_exists(survivor_id=attrs['negotiator']) or not survivor_exists(survivor_id=attrs['target']):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente não existe.'})
         if  survivor_infected(survivor_id=attrs['negotiator']) or  survivor_infected(survivor_id=attrs['target']):
@@ -42,11 +43,12 @@ class NegotiateSerializer(serializers.Serializer):
         return super().validate(attrs)
     
     def create(self, validated_data):
+        """ make a negotiation update """
         update_resources(survivor=validated_data['negotiator'], resources=validated_data['negotiator_resources'])
         update_resources(survivor=validated_data['target'], resources=validated_data['target_resources'])
         update_resources(survivor=validated_data['negotiator'], resources=validated_data['target_resources'])
         update_resources(survivor=validated_data['target'], resources=validated_data['negotiator_resources'])
-        negotiator_resources = get_resources(id=validated_data['negotiator'])
-        target_resources = get_resources(id=validated_data['target'])
+        negotiator_resources = get_resources(survivor_id=validated_data['negotiator'])
+        target_resources = get_resources(survivor_id=validated_data['target'])
         return {'negotiator': validated_data['negotiator'], 'target': validated_data['target'], 'negotiator_resources': negotiator_resources, 'target_resources': target_resources}
     
