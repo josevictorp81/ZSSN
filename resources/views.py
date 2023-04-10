@@ -1,8 +1,8 @@
-from rest_framework.generics import RetrieveAPIView, ListAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import ResourceSerializer
+from .serializers import ResourceSerializer, NegotiateSerializer
 from core.models import Survivor, Resource
 from .helpers.get_resources_average import mean_ammunition, mean_food, mean_medication, mean_water
 
@@ -27,3 +27,15 @@ class MeanAmountResources(ListAPIView):
 
     def get(self, request, *args, **kwargs):
         return Response(data={'água': mean_water(), 'medicação': mean_medication(), 'alimentação': mean_food(), 'munição': mean_ammunition()}, status=status.HTTP_200_OK)
+
+
+class NegotiateResources(CreateAPIView):
+    queryset = None
+    serializer_class = NegotiateSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        if(serializer.is_valid()):
+            serializer.save()
+            return Response(data={'detail': 'Negociação realizada com sucesso.'}, status=status.HTTP_201_CREATED)
+        return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)

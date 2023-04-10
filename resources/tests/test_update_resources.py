@@ -27,3 +27,4 @@ class AverageHelperTests(APITestCase):
         self.assertEqual(resources1.get(name='Medicação').quantity, 15)
         self.assertEqual(resources1.get(name='Alimentação').quantity, 5)
         self.assertEqual(resources1.get(name='Munição').quantity, 10)
+        

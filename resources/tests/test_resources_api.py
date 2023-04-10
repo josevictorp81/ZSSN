@@ -5,6 +5,7 @@ from django.urls import reverse
 from core.models import Survivor, Resource
 
 MEAN_AMOUNT_URL = reverse('mean-amount-resources')
+NEGOTIATION_URL = reverse('negotiate-resources')
 
 def resource_survivor_url(survivor_id) -> str:
     return reverse('list-resources', args=[survivor_id])
@@ -53,3 +54,27 @@ class ResourceTests(APITestCase):
         self.assertEqual(res.data['medicação'], 2.5)
         self.assertEqual(res.data['alimentação'], 4.0)
         self.assertEqual(res.data['munição'], 1.0)
+    
+    def test_make_negotiation(self):
+        survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
+        survivor2 = Survivor.objects.create(name='name2', age=25, sex= 'M', local= '12.00003, 14.00004')
+        data_resource1 = [{'name': 'Água', 'quantity': 10}, {'name': 'Medicação', 'quantity': 20}, {'name': 'Alimentação', 'quantity': 1}, {'name': 'Munição', 'quantity': 0}]
+        data_resource2 = [{'name': 'Água', 'quantity': 1}, {'name': 'Medicação', 'quantity': 5}, {'name': 'Alimentação', 'quantity': 12}, {'name': 'Munição', 'quantity': 30}]
+        for resource in data_resource1:
+            Resource.objects.create(survivor=survivor1, **resource)
+        for resource in data_resource2:
+            Resource.objects.create(survivor=survivor2, **resource)
+
+        s1_negotiation = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 5}]
+        s2_negotiation = [{'name': 'Alimentação', 'quantity': 4}, {'name': 'Munição', 'quantity': 10}]
+        payload = {'negotiator': survivor1.id, 'target': survivor2.id, 'negotiator_resources': s1_negotiation, 'target_resources': s2_negotiation}
+
+        res = self.client.post(NEGOTIATION_URL, payload, format='json')
+        resources1 = Resource.objects.filter(survivor=survivor1.id)
+        
+        # self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        # self.assertEqual(resources1.get(name='Água').quantity, 7)
+        # self.assertEqual(resources1.get(name='Medicação').quantity, 15)
+        # self.assertEqual(resources1.get(name='Alimentação').quantity, 5)
+        # self.assertEqual(resources1.get(name='Munição').quantity, 10)
+        self.assertEqual(res.data['detail'], 'Negociação realizada com sucesso.')
