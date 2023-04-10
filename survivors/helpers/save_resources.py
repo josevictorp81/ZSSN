@@ -1,4 +1,4 @@
-from ..serializers import ResourceSerializer
+from resources.serializers import ResourceSerializer
 
 def save_resources(resources, survivor) -> bool:
     for resource in resources:

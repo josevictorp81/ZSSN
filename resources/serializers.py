@@ -1,11 +1,12 @@
 from rest_framework import serializers
 
 from core.models import Resource
-from survivors.helpers.search_survivor import survivor_exists
-from survivors.helpers.survivor_infected_verify import survivor_infected_verify
+from helpers.search_survivor import survivor_exists
+from helpers.survivor_infected_verify import survivor_infected_verify
 from .helpers.count_points import count_resources_points
 from .helpers.update_negotiantion import update_resources
 from .helpers.get_resources import get_resources
+
 
 class ResourceSerializer(serializers.ModelSerializer):
     class Meta:
