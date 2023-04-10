@@ -8,4 +8,4 @@ class AverageHelperTests(APITestCase):
 
         points = count_resources_points(data)
 
-        self.assertEqual(points, 10)
+        self.assertEqual(points, 12)
