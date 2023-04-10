@@ -110,7 +110,7 @@ class SurvivorApiTest(APITestCase):
         res = self.client.get(PERCENTAGE_INFECTED)
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data['detail'], '25.00%')
+        self.assertEqual(res.data['detail'], 25.00)
     
     def test_return_percentage_of_survivors_no_infected(self):
         """ test return percentage of not infected survivors """
@@ -122,7 +122,7 @@ class SurvivorApiTest(APITestCase):
         res = self.client.get(PERCENTAGE_NOT_INFECTED)
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data['detail'], '75.00%')
+        self.assertEqual(res.data['detail'], 75.00)
     
     def test_lost_points(self):
         """ test return lost points of an infected survivor """

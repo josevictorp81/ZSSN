@@ -56,7 +56,7 @@ class HelperTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        mean = resource_average(resource_name='Água')
+        mean = resource_average(resource_name='Água', survivor_amount=2)
 
         self.assertEqual(mean, 2.0)
 
@@ -69,7 +69,7 @@ class HelperTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        mean = resource_average(resource_name='Medicação')
+        mean = resource_average(resource_name='Medicação', survivor_amount=2)
 
         self.assertEqual(mean, 2.5)
 
@@ -82,7 +82,7 @@ class HelperTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        mean = resource_average(resource_name='Alimentação')
+        mean = resource_average(resource_name='Alimentação', survivor_amount=2)
 
         self.assertEqual(mean, 4.0)
 
@@ -95,7 +95,7 @@ class HelperTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        mean = resource_average(resource_name='Munição')
+        mean = resource_average(resource_name='Munição', survivor_amount=2)
 
         self.assertEqual(mean, 1.0)
     

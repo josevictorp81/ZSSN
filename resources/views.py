@@ -1,6 +1,10 @@
 from rest_framework.generics import RetrieveAPIView, ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
+from helpers.verify_survivor_exist import survivor_exists
+from helpers.verify_survivor_infected import survivor_infected
+
+from resources.helpers.get_count_survirvos import get_survivor_amount
 
 from .serializers import ResourceSerializer, NegotiateSerializer
 from core.models import Survivor, Resource
@@ -12,9 +16,9 @@ class ListSurvivorResources(RetrieveAPIView):
     queryset = Resource.objects.all()
 
     def get(self, request, *args, **kwargs):
-        if Survivor.objects.filter(id=kwargs['pk']).exists():
-            if Survivor.objects.filter(id=kwargs['pk']).first().infected:
-                return Response(data={'detail': 'Sobrevivente infectado, recursos indisponíveis.'}, status=status.HTTP_200_OK)
+        if survivor_exists(survivor_id=kwargs['pk']):
+            if survivor_infected(survivor_id=kwargs['pk']):
+                return Response(data={'detail': 'Sobrevivente infectado, recursos indisponíveis.'}, status=status.HTTP_400_BAD_REQUEST)
             resources = self.queryset.filter(survivor=kwargs['pk'])
             serializer = self.serializer_class(instance=resources, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK)
@@ -28,11 +32,15 @@ class MeanAmountResources(ListAPIView):
     serializer_class = None
 
     def get(self, request, *args, **kwargs):
-        water = resource_average(resource_name='Água')
-        medication = resource_average(resource_name='Medicação')
-        food = resource_average(resource_name='Alimentação')
-        ammunition = resource_average(resource_name='Munição')
-        return Response(data={'Água': water, 'Medicação': medication, 'Alimentação': food, 'Munição': ammunition}, status=status.HTTP_200_OK)
+        survivor_amount = get_survivor_amount()
+        if survivor_amount == 0:
+            return Response(data={'Água': 0, 'Medicação': 0, 'Alimentação': 0, 'Munição': 0}, status=status.HTTP_200_OK)
+        else:
+            water = resource_average(resource_name='Água', survivor_amount=survivor_amount)
+            medication = resource_average(resource_name='Medicação', survivor_amount=survivor_amount)
+            food = resource_average(resource_name='Alimentação', survivor_amount=survivor_amount)
+            ammunition = resource_average(resource_name='Munição', survivor_amount=survivor_amount)
+            return Response(data={'Água': water, 'Medicação': medication, 'Alimentação': food, 'Munição': ammunition}, status=status.HTTP_200_OK)
 
 
 class NegotiateResources(CreateAPIView):

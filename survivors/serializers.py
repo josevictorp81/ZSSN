@@ -43,12 +43,12 @@ class InfectedSerializer(serializers.ModelSerializer):
         infected = attrs['infected']
         if reporter == infected:
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente não pode reportar a si mesmo como infectado.'})
-        if  survivor_infected(survivor_id=reporter):
-            raise serializers.ValidationError(detail={'detail': 'Sobrevivente infectado não pode reportar outro sobrevivente como infectado.'})
         if not survivor_exists(survivor_id=reporter):
             raise serializers.ValidationError(detail={'detail': 'Sobrevivente que reportou a infecção não existe.'})
         if not survivor_exists(survivor_id=infected):
-            raise serializers.ValidationError(detail={'detail': 'Sobrevivente reportado como infectado não existe.'})
+            raise serializers.ValidationError(detail={'detail': 'Sobrevivente reportado como infectado não existe.'})      
+        if survivor_infected(survivor_id=reporter) or survivor_infected(survivor_id=infected):
+            raise serializers.ValidationError(detail={'detail': 'Sobrevivente infectado não pode reportar outro sobrevivente como infectado.'})
         reported = self.Meta.model.objects.filter(reporter=reporter,  infected=infected)
         if reported.exists():
             raise serializers.ValidationError(detail={'detail': f'Sobrevivente {reporter} ja reportou o sobrevivente {infected} como infectado.'})
