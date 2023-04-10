@@ -4,30 +4,24 @@ from rest_framework import status
 
 from .serializers import SurvivorSerializer, UpdateLocalSerializer, InfectedSerializer
 from core.models import Survivor, Infected
-from .helpers.save_resources import save_resources
-from .helpers.survivor_object import create_survivor_object
 from .helpers.get_lost_points import get_lost_points
 
 
 class SurvivorCreate(CreateAPIView):
+    """ create survivor """
     serializer_class = SurvivorSerializer
     queryset = Survivor.objects.all()
 
     def create(self, request, *args, **kwargs):
-        survivor = create_survivor_object(request.data)
-        serializer = self.serializer_class(data=survivor)
-        if not 'resources' in request.data or len(request.data['resources']) == 0:
-            return Response(data={'detail': 'Informe os recursos do sobrevivente.'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = self.serializer_class(data=request.data)
         if(serializer.is_valid()):
             serializer.save()
-            resources = save_resources(request.data['resources'], serializer.data['id'])
-            if not resources:
-                response = Response(data=serializer.data, status=status.HTTP_201_CREATED)
-                return response
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
         return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdateSurvivorLocal(UpdateAPIView):
+    """ update an survivor local """
     serializer_class = UpdateLocalSerializer
 
     def get_queryset(self):
@@ -35,6 +29,7 @@ class UpdateSurvivorLocal(UpdateAPIView):
 
 
 class SurvivorInfected(CreateAPIView):
+    """ report an survivor as infected """
     serializer_class = InfectedSerializer
     queryset = Infected.objects.all()
 
@@ -47,6 +42,7 @@ class SurvivorInfected(CreateAPIView):
 
 
 class SurvivorInfectedPercentage(ListAPIView):
+    """ list percentage of infected survivors """
     queryset = Survivor.objects.all()
     
     def get(self, request, *args, **kwargs):
@@ -57,6 +53,7 @@ class SurvivorInfectedPercentage(ListAPIView):
 
 
 class SurvivorNotInfectedPercentage(ListAPIView):
+    """ list percentage of survivors not infected """
     queryset = Survivor.objects.all()
     
     def get(self, request, *args, **kwargs):
@@ -67,6 +64,7 @@ class SurvivorNotInfectedPercentage(ListAPIView):
 
 
 class LostPointsPerInfected(RetrieveAPIView):
+    """ list lost points of an infected survivor """
     serializer_class = None
     queryset = Survivor.objects.all()
 

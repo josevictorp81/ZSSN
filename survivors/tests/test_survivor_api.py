@@ -23,6 +23,7 @@ def survivor_url(url: str, survivor_id) -> str:
 
 class SurvivorApiTest(APITestCase):
     def test_create_survivor_and_resources(self):
+        """ teste create survivor on success """
         data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.34563, 14.53467', 'resources': [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]}
         
         res = self.client.post(SURVIVOR_URL, data, format='json')
@@ -33,7 +34,17 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(resource.count(), 2)
         self.assertTrue(survivor.exists())
     
+    def test_create_survivor_no_resources(self):
+        """ test create survivor with error, resouces are not provided """
+        data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.34563, 14.53467', 'resources': []}
+        
+        res = self.client.post(SURVIVOR_URL, data, format='json')
+
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(res.data['detail'], 'Informe os recursos do sobrevivente.')
+    
     def test_update_local(self):
+        """ test update local of an survivor """
         data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.00000, 14.00000'}
         survivor = Survivor.objects.create(**data)
         payload = {'local': '12.34563, 14.53467'}
@@ -47,6 +58,7 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(survivor.local, payload['local'])
     
     def test_survivor_infected(self):
+        """ test report survivor as infected """
         survivors = create_survivor()
         s4 = survivors.pop()
 
@@ -58,6 +70,7 @@ class SurvivorApiTest(APITestCase):
         self.assertTrue(infected.infected)
     
     def test_reporte_infected_again(self):
+        """ test do not report infected survivor one more time """
         survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
         survivor2 = Survivor.objects.create(name='name2', age=35, sex= 'M', local= '12.00003, 14.00004')
         Infected.objects.create(reporter=survivor1.id, infected=survivor2.id)
@@ -68,6 +81,7 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.data['detail'], f'Sobrevivente {survivor1.id} ja reportou o sobrevivente {survivor2.id} como infectado.')
     
     def test_survivor_infected_not_report(self):
+        """ test do not infected survivor report another survivor """
         survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002', infected=True)
         survivor2 = Survivor.objects.create(name='name2', age=35, sex= 'M', local= '12.00003, 14.00004')
         Infected.objects.create(reporter=survivor1.id, infected=survivor2.id)
@@ -78,22 +92,16 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.data['detail'], 'Sobrevivente infectado não pode reportar outro sobrevivente como infectado.')
     
     def test_dont_report_yourself(self):
+        """ test do not survivor report yourself as infected """
         survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
 
         res = self.client.post(INFECTED_URL, {'reporter': survivor1.id, 'infected': survivor1.id}, format='json')
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(res.data['detail'], 'Sobrevivente não pode reportar a si mesmo como infectado.')
-
-    def test_create_survivor_no_resources(self):
-        data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.34563, 14.53467'}
-        
-        res = self.client.post(SURVIVOR_URL, data, format='json')
-
-        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(res.data['detail'], 'Informe os recursos do sobrevivente.')
     
     def test_return_percentage_of_survivors_infected(self):
+        """ test return percentage of infected survivors """
         survivors = create_survivor()
         s4 = survivors[3]
         s4.infected = True
@@ -105,6 +113,7 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.data['detail'], '25.00%')
     
     def test_return_percentage_of_survivors_no_infected(self):
+        """ test return percentage of not infected survivors """
         survivors = create_survivor()
         s4 = survivors[3]
         s4.infected = True
@@ -116,6 +125,7 @@ class SurvivorApiTest(APITestCase):
         self.assertEqual(res.data['detail'], '75.00%')
     
     def test_lost_points(self):
+        """ test return lost points of an infected survivor """
         survivor1 = Survivor.objects.create(name='name1', age=23, sex= 'F', local= '12.00001, 14.00002')
         survivor2 = Survivor.objects.create(name='name2', age=25, sex= 'M', local= '12.00003, 14.00004', infected=True)
         data_resource1 = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 3}, {'name': 'Alimentação', 'quantity': 5}, {'name': 'Munição', 'quantity': 1}]

@@ -18,8 +18,7 @@ class ResourceSerializer(serializers.ModelSerializer):
 class ResourceNegotiateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resource
-        fields = ['id', 'name', 'quantity']
-        read_only_fields = ['id']
+        fields = ['name', 'quantity']
 
 
 class NegotiateSerializer(serializers.Serializer):

@@ -2,15 +2,27 @@ from rest_framework import serializers
 
 from core.models import Infected, Survivor
 from helpers.verify_survivor_exist import survivor_exists
+from survivors.helpers.save_resources import save_resources
 from .helpers.save_survivor_infected import save_survivor_infected
 from helpers.verify_survivor_infected import survivor_infected
-
+from resources.serializers import ResourceNegotiateSerializer
 
 class SurvivorSerializer(serializers.ModelSerializer):
+    resources = ResourceNegotiateSerializer(many=True, required=False)
     class Meta:
         model = Survivor
-        fields = ['id', 'name', 'age', 'sex', 'local']
+        fields = ['id', 'name', 'age', 'sex', 'local', 'resources']
         read_only_fields = ['id']
+    
+    def validate(self, attrs):
+        if not attrs['resources'] or len(attrs['resources']) == 0:
+            raise serializers.ValidationError(detail={'detail': 'Informe os recursos do sobrevivente.'})
+        return super().validate(attrs)
+    
+    def create(self, validated_data):
+        survivor = Survivor.objects.create(name=validated_data['name'], age=validated_data['age'], sex=validated_data['sex'], local=validated_data['local'])
+        save_resources(resources=validated_data['resources'], survivor_id=survivor.id)
+        return survivor
 
 
 class UpdateLocalSerializer(serializers.ModelSerializer):
