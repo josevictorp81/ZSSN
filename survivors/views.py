@@ -7,6 +7,11 @@ from core.models import Survivor, Infected
 from .helpers.get_lost_points import get_lost_points
 
 
+class ListSurvivors(ListAPIView):
+    serializer_class = SurvivorSerializer
+    queryset = Survivor.objects.all()
+
+
 class SurvivorCreate(CreateAPIView):
     """ create survivor """
     serializer_class = SurvivorSerializer
@@ -16,7 +21,7 @@ class SurvivorCreate(CreateAPIView):
         serializer = self.serializer_class(data=request.data)
         if(serializer.is_valid()):
             serializer.save()
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            return Response(data={'data': serializer.data, 'detail': 'Sobrevivente cadastrado com sucesso.'}, status=status.HTTP_201_CREATED)
         return Response(data={'detail': serializer.errors['detail'][0]}, status=status.HTTP_400_BAD_REQUEST)
 
 

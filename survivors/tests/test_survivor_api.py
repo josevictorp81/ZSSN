@@ -8,6 +8,7 @@ SURVIVOR_URL = reverse('create-survivor')
 INFECTED_URL = reverse('survivor-infected')
 PERCENTAGE_INFECTED = reverse('percentage-infected')
 PERCENTAGE_NOT_INFECTED = reverse('percentage-not-infected')
+LIST_SURVIVORS_URL = reverse('list-survivors')
 
 def create_survivor() -> list:
     survivors = []
@@ -22,15 +23,25 @@ def survivor_url(url: str, survivor_id) -> str:
 
 
 class SurvivorApiTest(APITestCase):
+    def test_list_survivors(self):
+        """ test list all survivors """
+        create_survivor()
+
+        res = self.client.get(LIST_SURVIVORS_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 4)
+
     def test_create_survivor_and_resources(self):
         """ teste create survivor on success """
         data = {'name': 'name 1', 'age': 23, 'sex': 'M', 'local': '12.34563, 14.53467', 'resources': [{'name': 'agua', 'quantity': 1}, {'name': 'remedio', 'quantity': 3}]}
         
         res = self.client.post(SURVIVOR_URL, data, format='json')
-        survivor = Survivor.objects.filter(id=res.data['id'])
-        resource = Resource.objects.filter(survivor=res.data['id'])
+        survivor = Survivor.objects.filter(id=res.data['data']['id'])
+        resource = Resource.objects.filter(survivor=res.data['data']['id'])
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(res.data['detail'], 'Sobrevivente cadastrado com sucesso.')
         self.assertEqual(resource.count(), 2)
         self.assertTrue(survivor.exists())
     
