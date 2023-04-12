@@ -17,6 +17,11 @@ class ListInfectedSurvivors(ListAPIView):
     queryset = Survivor.objects.filter(infected=True)
 
 
+class ListNotInfectedSurvivors(ListAPIView):
+    serializer_class = SurvivorSerializer
+    queryset = Survivor.objects.filter(infected=False)
+
+
 class SurvivorCreate(CreateAPIView):
     """ create survivor """
     serializer_class = SurvivorSerializer
