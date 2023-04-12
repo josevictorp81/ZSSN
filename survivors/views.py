@@ -7,9 +7,14 @@ from core.models import Survivor, Infected
 from .helpers.get_lost_points import get_lost_points
 
 
-class ListSurvivors(ListAPIView):
+class ListAllSurvivors(ListAPIView):
     serializer_class = SurvivorSerializer
     queryset = Survivor.objects.all()
+
+
+class ListInfectedSurvivors(ListAPIView):
+    serializer_class = SurvivorSerializer
+    queryset = Survivor.objects.filter(infected=True)
 
 
 class SurvivorCreate(CreateAPIView):

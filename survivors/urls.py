@@ -3,7 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('survivors/', views.ListSurvivors.as_view(), name='list-survivors'),
+    path('survivors/', views.ListAllSurvivors.as_view(), name='list-survivors'),
+    path('survivors/infected/', views.ListInfectedSurvivors.as_view(), name='list-infected-survivors'),
     path('survivor/', views.SurvivorCreate.as_view(), name='create-survivor'),
     path('survivor/<int:pk>/update-local/', views.UpdateSurvivorLocal.as_view(), name='update-local'),
     path('survivor/infected/', views.SurvivorInfected.as_view(), name='survivor-infected'),

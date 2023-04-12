@@ -9,6 +9,7 @@ INFECTED_URL = reverse('survivor-infected')
 PERCENTAGE_INFECTED = reverse('percentage-infected')
 PERCENTAGE_NOT_INFECTED = reverse('percentage-not-infected')
 LIST_SURVIVORS_URL = reverse('list-survivors')
+LIST_SURVIVORS_INFECTED_URL = reverse('list-infected-survivors')
 
 def create_survivor() -> list:
     survivors = []
@@ -31,6 +32,18 @@ class SurvivorApiTest(APITestCase):
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(len(res.data), 4)
+    
+    def test_list_survivors(self):
+        """ test list all infected survivors """
+        suvivors = create_survivor()
+        s4 = suvivors.pop()
+        s4.infected = True
+        s4.save()
+
+        res = self.client.get(LIST_SURVIVORS_INFECTED_URL)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(res.data), 1)
 
     def test_create_survivor_and_resources(self):
         """ teste create survivor on success """
