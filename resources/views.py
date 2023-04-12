@@ -40,7 +40,7 @@ class MeanAmountResources(ListAPIView):
             medication = resource_average(resource_name='Medicação', survivor_amount=survivor_amount)
             food = resource_average(resource_name='Alimentação', survivor_amount=survivor_amount)
             ammunition = resource_average(resource_name='Munição', survivor_amount=survivor_amount)
-            return Response(data={'Água': water, 'Medicação': medication, 'Alimentação': food, 'Munição': ammunition}, status=status.HTTP_200_OK)
+            return Response(data={'Água': float(f'{water:.2f}'), 'Medicação': float(f'{medication:.2f}'), 'Alimentação': float(f'{food:.2f}'), 'Munição': float(f'{ammunition:.2f}')}, status=status.HTTP_200_OK)
 
 
 class NegotiateResources(CreateAPIView):
