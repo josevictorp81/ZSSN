@@ -1,0 +1,84 @@
+.container .content .form-survivor {
+    border-radius: 10px;
+    width: 68%;
+    border: 1px solid rgb(27, 27, 80);
+    margin: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container .content .form-survivor .title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.container .content .form-survivor .form-fields {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 5px;
+}
+
+.container .content .form-survivor .form-fields .label-input {
+    margin-bottom: 3px;
+    padding-top: 15px;
+    font-weight: bold;
+}
+
+.container .content .form-survivor .form-fields .input-data {
+    border: 1px solid;
+    border-radius: 5px;
+    height: 25px;
+    padding-left: 5px;
+}
+
+.container .content .form-survivor .form-fields .field .input-sex {
+    border: 1px solid;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.container .content .form-survivor .form-fields button {
+    border: 1px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgb(44, 136, 241);
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.container .content .form-survivor .form-fields button:hover {
+    transform: scale(1.03);
+    box-shadow: 1px rgb(112, 175, 247);
+}
+
+.container .content .form-survivor .form-fields .field {
+    margin-top: 15px;
+    padding: 0px 30px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.container .content .form-survivor .form-fields .field select {
+    width: 100px;
+    height: 35px;
+}
+
+.container .content .form-survivor .form-fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-right: 15px;
+}
+.container .content .form-survivor .form-fields .field input {
+    width: 70px;
+    overflow: hidden;
+}
+
+.container .content .form-survivor .form-fields .field .input-data {
+    margin-right: 20px;
+    width: 100px;
+    height: 30px;
+}

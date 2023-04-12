@@ -45,9 +45,12 @@ python manage.py test
 python manage.py runserver
 ```
 
-## Documentação
+## Produção
 
-A documentação da api pode ser encontrada acessando as urls `/` e `/redoc`.
+Link para api em produção, <a href="https://zssnapi.onrender.com" target="_blank">ZSSN API</a>.
+
+Endpoints
+<img src="./enp.png" width="300" height="300"/>
 
 ## Tecnologias
 

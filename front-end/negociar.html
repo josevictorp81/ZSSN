@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ZSSN</title>
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/negociar.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
+        <script
+            src="https://kit.fontawesome.com/1c27756850.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <header>ZSSN</header>
+                <ul>
+                    <li>
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="./cadastrar.html">Cadastrar</a>
+                    </li>
+                    <li>
+                        <a href="./atualizar.html">Atualizar</a>
+                    </li>
+                    <li>
+                        <a href="./inventario.html">Inventário</a>
+                    </li>
+                    <li>
+                        <a href="./negociar.html">Negociar</a>
+                    </li>
+                    <li>
+                        <a href="./infectado.html">Reportar</a>
+                    </li>
+                    <li>
+                        <a href="./relatorios.html">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content">
+                <!-- orders list -->
+                <div class="form-survivor">
+                    <form action="#" method="POST">
+                        <div class="title">
+                            <h2>Negociar Recursos</h2>
+                        </div>
+                        <div class="form-fields">
+                            <div class="fields">
+                                <label
+                                    for="survivor-negociator"
+                                    class="label-input"
+                                    >Sobrevivente</label
+                                >
+                                <select
+                                    name="survivor-negociator"
+                                    id="survivor-negociator"
+                                    class="input-negociator"
+                                    required
+                                >
+                                    <option class="option" value="0">
+                                        Escolha
+                                    </option>
+                                </select>
+                                <div class="quantities">
+                                    <label
+                                        for="negociator-water"
+                                        class="label-input"
+                                        >Água</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-water"
+                                        name="negociator-water"
+                                        required
+                                    />
+
+                                    <label
+                                        for="negociator-food"
+                                        class="label-input"
+                                        >Alimentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-food"
+                                        name="negociator-food"
+                                        required
+                                    />
+
+                                    <label
+                                        for="negociator-medication"
+                                        class="label-input"
+                                        >Medicamentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-medication"
+                                        name="negociator-medication"
+                                        required
+                                    />
+
+                                    <label
+                                        for="negociator-ammunition"
+                                        class="label-input"
+                                        >Munição</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-ammunition"
+                                        name="negociator-ammunition"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <label for="survivor-target" class="label-input"
+                                    >Sobrevivente</label
+                                >
+                                <select
+                                    name="survivor-target"
+                                    id="survivor-target"
+                                    class="input-target"
+                                    required
+                                >
+                                    <option class="option" value="0">
+                                        Escolha
+                                    </option>
+                                </select>
+                                <div class="quantities">
+                                    <label
+                                        for="target-water"
+                                        class="label-input"
+                                        >Água</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="target-water"
+                                        name="target-water"
+                                        required
+                                    />
+
+                                    <label for="target-food" class="label-input"
+                                        >Alimentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="target-food"
+                                        name="target-food"
+                                        required
+                                    />
+
+                                    <label
+                                        for="target-medication"
+                                        class="label-input"
+                                        >Medicamentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="target-medication"
+                                        name="target-medication"
+                                        required
+                                    />
+
+                                    <label
+                                        for="target-ammunition"
+                                        class="label-input"
+                                        >Munição</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="target-ammunition"
+                                        name="target-ammunition"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-fields">
+                            <button type="submit" id="submit">Negociar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- end orders list -->
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+        <script src="./js/negociar.js"></script>
+    </body>
+</html>

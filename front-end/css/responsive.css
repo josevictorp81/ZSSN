@@ -1,0 +1,61 @@
+@media (max-width: 1200px) {
+    .container .content .form-survivor .form-fields .field {
+        margin-top: 15px;
+        padding: 0px 20px;
+        text-align: center;
+        transition: 0.3s;
+    }
+}
+
+@media (max-width: 991px) {
+    .content .reports .status h3 {
+        word-wrap: break-word;
+        text-align: center;
+    }
+    .content .reports .status .graph {
+        height: 70%;
+        width: 100%;
+        align-items: center;
+        padding-top: 20px;
+        transition: 0.3s;
+    }
+
+    .content .reports .lost-points .form .form-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 7px;
+    }
+
+    .content .reports .lost-points .form .form-content select {
+        margin-bottom: 7px;
+    }
+
+    .container .content .form-survivor .form-fields .field input {
+        width: 40px;
+        overflow: hidden;
+    }
+
+    .container .content .form-survivor .form-fields .field {
+        margin-top: 15px;
+        text-align: center;
+        transition: 0.3s;
+    }
+}
+
+@media (max-width: 768px) {
+    .container .content .form-survivor .form-fields .field {
+        margin-top: 15px;
+        padding: 0px 20px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .container .content .form-survivor .form-fields .field input {
+        width: 30px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 600px) {
+}

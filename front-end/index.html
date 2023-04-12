@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ZSSN</title>
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
+        <!-- <script
+            src="https://kit.fontawesome.com/1c27756850.js"
+            crossorigin="anonymous"
+        ></script> -->
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <header>ZSSN</header>
+                <ul>
+                    <li>
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="./cadastrar.html">Cadastrar</a>
+                    </li>
+                    <li>
+                        <a href="./atualizar.html">Atualizar</a>
+                    </li>
+                    <li>
+                        <a href="./inventario.html">Inventário</a>
+                    </li>
+                    <li>
+                        <a href="./negociar.html">Negociar</a>
+                    </li>
+                    <li>
+                        <a href="./infectado.html">Reportar</a>
+                    </li>
+                    <li>
+                        <a href="./relatorios.html">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content">
+                <!-- orders list -->
+                <div class="list">
+                    <div class="nav">
+                        <ul>
+                            <li>
+                                <h2>Sobreviventes</h2>
+                            </li>
+                            <li>
+                                <p
+                                    id="sucessMessage"
+                                    style="
+                                        color: rgb(56, 231, 223);
+                                        border-radius: 10px;
+                                        width: 150px;
+                                        height: 30px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    "
+                                ></p>
+                            </li>
+                            <li>
+                                <p
+                                    id="erroMessage"
+                                    style="
+                                        color: rgb(241, 48, 48);
+                                        border-radius: 10px;
+                                        width: 150px;
+                                        height: 30px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                    "
+                                ></p>
+                            </li>
+                        </ul>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Idade</th>
+                                <th>Sexo</th>
+                                <th>Local</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody"></tbody>
+                    </table>
+                </div>
+                <!-- end orders list -->
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="./js/index.js"></script>
+    </body>
+</html>

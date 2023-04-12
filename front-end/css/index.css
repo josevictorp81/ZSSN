@@ -1,0 +1,255 @@
+:root {
+    --wihte-color: #fff;
+    --table-head: #a09f9f;
+    --table-line: #dddddd;
+    --edit-icon: rgb(4, 184, 4);
+    --delete-icon: rgb(255, 0, 0);
+}
+
+* {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    color: #000;
+}
+
+hr {
+    color: gray;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    /* background-color: rgb(27, 27, 80); */
+}
+
+.sidebar {
+    /* width: 300px; */
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgb(27, 27, 80);
+}
+
+.sidebar header {
+    font-size: 28px;
+    color: var(--wihte-color);
+    text-align: center;
+    background-color: rgb(45, 45, 124);
+    line-height: 80px;
+    width: 100%;
+    user-select: none;
+}
+
+.sidebar ul a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+    line-height: 50px;
+    color: var(--wihte-color);
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar ul a i {
+    margin-right: 15px;
+}
+
+.sidebar ul a .fa-solid {
+    color: var(--wihte-color);
+}
+
+.sidebar ul li:hover a {
+    padding-left: 60px;
+}
+
+/* CONTENT */
+.container .content {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    gap: 8px;
+    left: 20%;
+    padding: 20px;
+}
+
+/* LIST */
+.container .content .list {
+    padding-bottom: 30px;
+    width: 68%;
+}
+
+.container .content .list .nav {
+    height: 40px;
+}
+
+.container .content .list .nav .btn-new-order {
+    background-color: rgb(9, 150, 221);
+    border: none;
+    height: 30px;
+    width: 95px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.container .content .list .nav .btn-new-order:hover {
+    transform: scale(1.1);
+    margin-right: 10px;
+}
+
+.container .content .list .nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .content .list table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding-bottom: 50px;
+    margin-top: 7px;
+}
+
+.container .content .list table thead {
+    background-color: var(--table-head);
+}
+
+.container .content .list table td {
+    /* width: 20px; */
+    max-width: 15px;
+    /* word-break: break-all; */
+}
+
+.container .content .list table td,
+th {
+    text-align: center;
+    padding: 4px;
+}
+
+.container .content .list table tr:nth-child(even) {
+    background-color: var(--table-line);
+    border: 1px var(--wihte-color);
+}
+
+/* REPORTS */
+/* .content .reports {
+    width: 25%;
+    height: 96vh;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 1;
+    right: 0;
+}
+
+.content .reports .status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40%;
+    width: 100%;
+}
+
+.content .reports .status .graph {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+.content .reports .status .graph .labels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content .reports .status .graph .labels .color {
+    width: 15px;
+    height: 15px;
+}
+
+.content .reports .status .graph .labels .color.rd {
+    background-color: red;
+}
+
+.content .reports .status .graph .labels .color.gr {
+    background-color: rgb(0, 250, 0);
+}
+
+.content .reports .status .graph .labels .label-text {
+    padding: 10px 15px;
+}
+
+.content .reports .status .graph canvas {
+    width: 98%;
+    height: 100%;
+}
+
+.content .reports .average-resources {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 20%;
+    width: 100%;
+}
+
+.content .reports .average-resources .info .resource {
+    display: flex;
+    justify-content: center;
+}
+
+.content .reports .average-resources .info .resource label,
+.content .reports .average-resources .info .resource p {
+    padding: 1px;
+}
+
+.content .reports .average-resources .info .resource p {
+    margin-left: 3px;
+}
+
+.content .reports .lost-points {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40%;
+    width: 100%;
+}
+
+.content .reports .lost-points .form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+    align-items: center;
+}
+
+.content .reports .lost-points .form label,
+.content .reports .lost-points .form .form-content {
+    margin-bottom: 5px;
+}
+
+.content .reports .lost-points .form .form-content select {
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.content .reports .lost-points .form .form-content button {
+    border-radius: 10px;
+    height: 30px;
+    width: 90px;
+    border: 1px solid #f0f0f0;
+    background-color: rgb(0, 195, 255);
+    cursor: pointer;
+} */

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ZSSN</title>
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/inventario.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <header>ZSSN</header>
+                <ul>
+                    <li>
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="./cadastrar.html">Cadastrar</a>
+                    </li>
+                    <li>
+                        <a href="./atualizar.html">Atualizar</a>
+                    </li>
+                    <li>
+                        <a href="./inventario.html">Inventário</a>
+                    </li>
+                    <li>
+                        <a href="./negociar.html">Negociar</a>
+                    </li>
+                    <li>
+                        <a href="./infectado.html">Reportar</a>
+                    </li>
+                    <li>
+                        <a href="./relatorios.html">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content">
+                <!-- orders list -->
+                <div class="form-survivor">
+                    <form action="#" method="POST">
+                        <div class="title">
+                            <h2>Inventário de Recursos</h2>
+                        </div>
+                        <div class="form-fields">
+                            <div class="fields">
+                                <label
+                                    for="survivor-inventory"
+                                    class="label-input"
+                                    >Sobrevivente</label
+                                >
+                                <select
+                                    name="survivor-inventory"
+                                    id="survivor-inventory"
+                                    class="input-inventory"
+                                    required
+                                >
+                                    <option class="option" value="">
+                                        Escolha
+                                    </option>
+                                </select>
+                                <div class="quantities">
+                                    <label
+                                        for="negociator-water"
+                                        class="label-input"
+                                        >Água</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-water"
+                                        name="negociator-water"
+                                        readonly
+                                    />
+
+                                    <label
+                                        for="negociator-food"
+                                        class="label-input"
+                                        >Alimentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-food"
+                                        name="negociator-food"
+                                        readonly
+                                    />
+
+                                    <label
+                                        for="negociator-medication"
+                                        class="label-input"
+                                        >Medicamentos</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-medication"
+                                        name="negociator-medication"
+                                        readonly
+                                    />
+
+                                    <label
+                                        for="negociator-ammunition"
+                                        class="label-input"
+                                        >Munição</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="negociator-ammunition"
+                                        name="negociator-ammunition"
+                                        readonly
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-fields">
+                            <button type="submit" id="submit">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- end orders list -->
+
+                <!-- reports -->
+                <!-- <div class="reports">
+                    <div class="status">
+                        <h3>Porcentagem de Infectados</h3>
+                        <div class="graph">
+                            <canvas
+                                id="chart"
+                                width="100"
+                                height="100"
+                            ></canvas>
+                        </div>
+                    </div>
+                    <div class="average-resources">
+                        <h3>Média de Recursos</h3>
+                        <div class="info">
+                            <div class="resource">
+                                <label for="water">Água:</label>
+                                <p id="water">2</p>
+                            </div>
+                            <div class="resource">
+                                <label for="food">Alimentos:</label>
+                                <p id="food">2</p>
+                            </div>
+                            <div class="resource">
+                                <label for="medication">Medicamentos:</label>
+                                <p id="medication">2</p>
+                            </div>
+                            <div class="resource">
+                                <label for="ammunition">Munição:</label>
+                                <p id="ammunition">2</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lost-points">
+                        <h3>Pontos Perdidos</h3>
+                        <div class="form">
+                            <label for="survivor">Sobrevivente:</label>
+                            <div class="form-content">
+                                <select
+                                    name="survivor-infected-list"
+                                    id="survivor-infected-list"
+                                >
+                                    <option value="0">----</option>
+                                    <option value="1">John</option>
+                                    <option value="2">Joy</option>
+                                </select>
+                                <button id="btn-points">Ver Pontos</button>
+                            </div>
+                            <p class="points">10 Pontos</p>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- end reports -->
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="./js/inventario.js"></script>
+    </body>
+</html>

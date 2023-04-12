@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ZSSN</title>
+        <link rel="stylesheet" href="./css/index.css" />
+        <link rel="stylesheet" href="./css/cadastrar.css" />
+        <link rel="stylesheet" href="./css/responsive.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="sidebar">
+                <header>ZSSN</header>
+                <ul>
+                    <li>
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="./cadastrar.html">Cadastrar</a>
+                    </li>
+                    <li>
+                        <a href="./atualizar.html">Atualizar</a>
+                    </li>
+                    <li>
+                        <a href="./inventario.html">Inventário</a>
+                    </li>
+                    <li>
+                        <a href="./negociar.html">Negociar</a>
+                    </li>
+                    <li>
+                        <a href="./infectado.html">Reportar</a>
+                    </li>
+                    <li>
+                        <a href="./relatorios.html">Relatórios</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content">
+                <!-- orders list -->
+                <div class="form-survivor">
+                    <form action="#" method="POST">
+                        <div class="title">
+                            <h2>Cadastrar Pedido</h2>
+                        </div>
+                        <div class="title" id="message"></div>
+                        <div class="form-fields">
+                            <label for="date" class="label-input">Nome</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                class="input-data"
+                                placeholder="Ex: Jõao"
+                                required
+                            />
+                            <div class="field">
+                                <label for="age" class="label-input"
+                                    >Idade</label
+                                >
+                                <input
+                                    type="number"
+                                    id="age"
+                                    name="age"
+                                    class="input-data"
+                                    placeholder="0"
+                                    required
+                                />
+
+                                <label for="sex" class="label-input"
+                                    >Sexo</label
+                                >
+                                <select
+                                    name="sex"
+                                    id="sex"
+                                    class="input-sex"
+                                    required
+                                >
+                                    <option class="option" value="F">
+                                        Feminino
+                                    </option>
+                                    <option class="option" value="M">
+                                        Masculino
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="latitude" class="label-input"
+                                    >Latitude</label
+                                >
+                                <input
+                                    type="number"
+                                    id="latitude"
+                                    name="latitude"
+                                    class="input-data"
+                                    placeholder="00.00000"
+                                    required
+                                />
+
+                                <label for="longitude" class="label-input"
+                                    >Longitude</label
+                                >
+                                <input
+                                    type="number"
+                                    id="longitude"
+                                    name="longitude"
+                                    class="input-data"
+                                    placeholder="00.00000"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="title">
+                            <h2>Recursos</h2>
+                        </div>
+                        <div class="form-fields">
+                            <div class="field">
+                                <label for="water" class="label-input"
+                                    >Água</label
+                                >
+                                <input
+                                    type="number"
+                                    id="water"
+                                    name="water"
+                                    class="input-data"
+                                    placeholder="0"
+                                    required
+                                />
+
+                                <label for="food" class="label-input"
+                                    >Alimentos</label
+                                >
+                                <input
+                                    type="number"
+                                    id="food"
+                                    name="food"
+                                    class="input-data"
+                                    placeholder="0"
+                                    required
+                                />
+                            </div>
+                            <div class="field">
+                                <label for="medication" class="label-input"
+                                    >Medicamentos</label
+                                >
+                                <input
+                                    type="number"
+                                    id="medication"
+                                    name="medication"
+                                    class="input-data"
+                                    placeholder="0"
+                                    required
+                                />
+
+                                <label for="ammunition" class="label-input"
+                                    >Munição</label
+                                >
+                                <input
+                                    type="number"
+                                    id="ammunition"
+                                    name="ammunition"
+                                    class="input-data"
+                                    placeholder="0"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div class="form-fields">
+                            <button type="submit" id="submit">Cadastrar</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- end orders list -->
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./js/cadastrar.js"></script>
+    </body>
+</html>
