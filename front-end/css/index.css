@@ -83,7 +83,7 @@ hr {
 /* LIST */
 .container .content .list {
     padding-bottom: 30px;
-    width: 68%;
+    width: 100%;
 }
 
 .container .content .list .nav {
@@ -125,13 +125,17 @@ hr {
 .container .content .list table td {
     /* width: 20px; */
     max-width: 15px;
-    /* word-break: break-all; */
+    word-break: break-all;
 }
 
-.container .content .list table td,
-th {
+.container .content .list table th {
     text-align: center;
-    padding: 4px;
+    padding: 4px 10px;
+}
+
+.container .content .list table td {
+    text-align: center;
+    padding: 4px 0px;
 }
 
 .container .content .list table tr:nth-child(even) {

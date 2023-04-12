@@ -3,15 +3,15 @@ const post = async (data) => {
         .post('https://zssnapi.onrender.com/api/survivor/', data)
         .then((res) => console.log(res.data['detail']))
         .catch((err) => console.log(err))
-
-    document.querySelector(
-        '#message'
-    ).innerHTML = `<p style="background-color: rgb(0, 250, 100) ">${message}</p>`
+    console.log(message)
+    // document.querySelector(
+    //     '#message'
+    // ).innerHTML = `<p style="background-color: rgb(0, 250, 100) ">${message}</p>`
 }
 
 const submit = document.querySelector('#submit')
 
-submit.addEventListener('click', async (evento) => {
+submit.addEventListener('click', async () => {
     const name = document.querySelector('#name').value
     const age = document.querySelector('#age').value
     const sex = document.querySelector('#sex').value

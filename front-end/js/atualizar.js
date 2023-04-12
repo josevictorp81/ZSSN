@@ -2,7 +2,7 @@ async function update() {
     const survivorsList = await axios
         .get('https://zssnapi.onrender.com/api/survivors/not-infected/')
         .then((res) => res.data)
-        .catch((err) => [])
+        .catch((err) => console.log(err))
 
     console.log(survivorsList)
 
@@ -15,7 +15,6 @@ async function update() {
     })
 
     const submit = document.querySelector('#submit')
-    const message = ''
 
     submit.addEventListener('click', async () => {
         const survivor = document.querySelector('#survivor-update').value
@@ -32,16 +31,12 @@ async function update() {
                 data
             )
             .then((res) => {
-                if (res.statusCode === 200) {
-                    return 'Ultimo local atualizado.'
-                }
+                res.data['detail']
             })
             .catch((err) => console.log(err))
 
         document.querySelector('#message').innerText = message
     })
 }
-
-document.querySelector('#message').innerText = message
 
 update()
