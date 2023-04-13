@@ -44,8 +44,10 @@ class ResourceTests(APITestCase):
         self.assertEqual(res.data['detail'], 'Sobrevivente infectado, recursos indisponíveis.')
     
     def test_mean_amount_resources_for_survivor(self):
-        """ test return average amount for each resource per survivor """
+        """ test return average amount for each resource per survivor not infected """
         survivor1, survivor2 = create_survivor()
+        survivor1.infected = True
+        survivor1.save()
         data_resource1 = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 3}, {'name': 'Alimentação', 'quantity': 5}, {'name': 'Munição', 'quantity': 1}]
         data_resource2 = [{'name': 'Água', 'quantity': 1}, {'name': 'Medicação', 'quantity': 2}, {'name': 'Alimentação', 'quantity': 3}, {'name': 'Munição', 'quantity': 1}]
         for resource in data_resource1:
@@ -57,9 +59,9 @@ class ResourceTests(APITestCase):
         res = self.client.get(MEAN_AMOUNT_URL)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data['Água'], 2.0)
-        self.assertEqual(res.data['Medicação'], 2.5)
-        self.assertEqual(res.data['Alimentação'], 4.0)
+        self.assertEqual(res.data['Água'], 1.0)
+        self.assertEqual(res.data['Medicação'], 2.0)
+        self.assertEqual(res.data['Alimentação'], 3.0)
         self.assertEqual(res.data['Munição'], 1.0)
     
     def test_make_negotiation(self):
