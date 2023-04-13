@@ -4,8 +4,6 @@ async function update() {
         .then((res) => res.data)
         .catch((err) => console.log(err))
 
-    console.log(survivorsList)
-
     const survivorRelator = document.querySelector('#survivor-update')
     survivorsList.forEach((option) => {
         var opt = document.createElement('option')

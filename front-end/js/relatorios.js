@@ -45,8 +45,6 @@ async function graphs() {
         .then((res) => res.data)
         .catch((err) => console.log(err))
 
-    console.log(infectedSurvivors)
-
     const infectedList = document.querySelector('#survivor-infected-list')
     infectedSurvivors.forEach((element) => {
         var opt = document.createElement('option')
@@ -55,7 +53,6 @@ async function graphs() {
         infectedList.appendChild(opt)
     })
 
-    // pontos perdidos
     button = document.querySelector('#btn-points')
     button.addEventListener('click', async () => {
         const suvivorId = document.querySelector(
@@ -67,8 +64,10 @@ async function graphs() {
             )
             .then((res) => res.data['detail'])
             .catch((err) => console.log(err))
-        console.log(lostPoints)
-        document.querySelector('#points').innerText = lostPoints
+
+        if (lostPoints) {
+            document.querySelector('#points').innerText = lostPoints
+        }
     })
 }
 
