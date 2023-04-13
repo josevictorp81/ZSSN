@@ -4,7 +4,7 @@ from core.models import Resource
 from helpers.verify_survivor_exist import survivor_exists
 from helpers.verify_survivor_infected import survivor_infected
 from .helpers.count_points import count_resources_points
-from .helpers.update_negotiantion import update_resources
+from .helpers.update_negotiantion import add_resources, remove_resources
 from .helpers.get_resources import get_resources
 
 
@@ -43,10 +43,10 @@ class NegotiateSerializer(serializers.Serializer):
     
     def create(self, validated_data):
         """ make a negotiation update """
-        update_resources(survivor=validated_data['negotiator'], resources=validated_data['negotiator_resources'])
-        update_resources(survivor=validated_data['target'], resources=validated_data['target_resources'])
-        update_resources(survivor=validated_data['negotiator'], resources=validated_data['target_resources'])
-        update_resources(survivor=validated_data['target'], resources=validated_data['negotiator_resources'])
+        remove_resources(survivor=validated_data['negotiator'], resources=validated_data['negotiator_resources'])
+        remove_resources(survivor=validated_data['target'], resources=validated_data['target_resources'])
+        add_resources(survivor=validated_data['negotiator'], resources=validated_data['target_resources'])
+        add_resources(survivor=validated_data['target'], resources=validated_data['negotiator_resources'])
         negotiator_resources = get_resources(survivor_id=validated_data['negotiator'])
         target_resources = get_resources(survivor_id=validated_data['target'])
         return {'negotiator': validated_data['negotiator'], 'target': validated_data['target'], 'negotiator_resources': negotiator_resources, 'target_resources': target_resources}

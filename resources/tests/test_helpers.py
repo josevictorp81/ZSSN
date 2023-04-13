@@ -3,7 +3,7 @@ from rest_framework.test import APITestCase
 from core.models import Survivor, Resource
 from resources.helpers.get_resources import get_resources
 from resources.helpers.get_resources_average import resource_average
-from resources.helpers.update_negotiantion import update_resources
+from resources.helpers.update_negotiantion import add_resources, remove_resources
 from resources.helpers.count_points import count_resources_points
 
 
@@ -33,13 +33,13 @@ class HelperTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        s1_negotiation = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 5}]
-        s2_negotiation = [{'name': 'Alimentação', 'quantity': 4}, {'name': 'Munição', 'quantity': 10}]
+        s1_negotiation = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 5}, {'name': 'Alimentação', 'quantity': 0}, {'name': 'Munição', 'quantity': 0}]
+        s2_negotiation = [{'name': 'Água', 'quantity': 0}, {'name': 'Medicação', 'quantity': 0}, {'name': 'Alimentação', 'quantity': 4}, {'name': 'Munição', 'quantity': 10}]
 
-        update_resources(survivor=survivor1.id, resources=s1_negotiation)
-        update_resources(survivor=survivor2.id, resources=s2_negotiation)
-        update_resources(survivor=survivor1.id, resources=s2_negotiation)
-        update_resources(survivor=survivor2.id, resources=s1_negotiation)
+        remove_resources(survivor=survivor1.id, resources=s1_negotiation)
+        remove_resources(survivor=survivor2.id, resources=s2_negotiation)
+        add_resources(survivor=survivor1.id, resources=s2_negotiation)
+        add_resources(survivor=survivor2.id, resources=s1_negotiation)
 
         resources1 = Resource.objects.filter(survivor=survivor1.id)
         self.assertEqual(resources1.get(name='Água').quantity, 7)

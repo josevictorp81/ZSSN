@@ -72,8 +72,8 @@ class ResourceTests(APITestCase):
         for resource in data_resource2:
             Resource.objects.create(survivor=survivor2, **resource)
 
-        s1_negotiation = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 5}]
-        s2_negotiation = [{'name': 'Alimentação', 'quantity': 4}, {'name': 'Munição', 'quantity': 10}]
+        s1_negotiation = [{'name': 'Água', 'quantity': 3}, {'name': 'Medicação', 'quantity': 5}, {'name': 'Alimentação', 'quantity': 0}, {'name': 'Munição', 'quantity': 0}]
+        s2_negotiation = [{'name': 'Água', 'quantity': 0}, {'name': 'Medicação', 'quantity': 0}, {'name': 'Alimentação', 'quantity': 4}, {'name': 'Munição', 'quantity': 10}]
         payload = {'negotiator': survivor1.id, 'target': survivor2.id, 'negotiator_resources': s1_negotiation, 'target_resources': s2_negotiation}
 
         res = self.client.post(NEGOTIATION_URL, payload, format='json')
